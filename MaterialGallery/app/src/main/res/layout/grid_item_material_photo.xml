@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="photo"
+            type="jp.co.andfactory.materialgallery.domain.model.MaterialPhoto"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <jp.co.andfactory.materialgallery.presentation.common.view.SquareImageView
+            android:id="@+id/photoImage"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:photoImageUrl="@{photo.imageUrl}"/>
+
+    </RelativeLayout>
+</layout>
