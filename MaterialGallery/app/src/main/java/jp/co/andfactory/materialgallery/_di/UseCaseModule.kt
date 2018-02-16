@@ -6,7 +6,7 @@ import jp.co.andfactory.materialgallery.domain.usecase.GetMaterialPhotoUseCase
 import jp.co.andfactory.materialgallery.domain.usecase.GetMaterialPhotoUseCaseImpl
 import jp.co.andfactory.materialgallery.domain.usecase.GetMaterialPhotosUseCase
 import jp.co.andfactory.materialgallery.domain.usecase.GetMaterialPhotosUseCaseImpl
-import jp.co.andfactory.materialgallery.infra.repository.ImageFlickrRepository
+import jp.co.andfactory.materialgallery.infra.repository.image_flickr.ImageFlickrRepository
 
 /**
  * Created by watanabe on 2017/12/24.

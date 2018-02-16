@@ -5,7 +5,7 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhoto
 import jp.co.andfactory.materialgallery.infra.entity.SearchOrderType
-import jp.co.andfactory.materialgallery.infra.repository.ImageFlickrRepository
+import jp.co.andfactory.materialgallery.infra.repository.image_flickr.ImageFlickrRepository
 
 /**
  * Created by watanabe on 2017/12/24.

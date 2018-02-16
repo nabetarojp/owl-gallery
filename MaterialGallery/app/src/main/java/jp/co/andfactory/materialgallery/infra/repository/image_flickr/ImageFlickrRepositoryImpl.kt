@@ -1,4 +1,4 @@
-package jp.co.andfactory.materialgallery.infra.repository
+package jp.co.andfactory.materialgallery.infra.repository.image_flickr
 
 import io.reactivex.Observable
 import io.reactivex.Single

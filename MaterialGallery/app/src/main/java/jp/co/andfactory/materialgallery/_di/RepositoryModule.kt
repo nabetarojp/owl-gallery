@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import jp.co.andfactory.materialgallery.infra.api.FlickrApiService
 import jp.co.andfactory.materialgallery.infra.database.OrmaDatabaseWrapper
-import jp.co.andfactory.materialgallery.infra.repository.*
+import jp.co.andfactory.materialgallery.infra.repository.image_flickr.*
 import javax.inject.Named
 import javax.inject.Singleton
 
