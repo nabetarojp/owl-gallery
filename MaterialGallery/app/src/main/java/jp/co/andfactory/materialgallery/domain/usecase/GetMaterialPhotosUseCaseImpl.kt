@@ -14,8 +14,8 @@ class GetMaterialPhotosUseCaseImpl(private val imageFlickrRepository: ImageFlick
 
 
     companion object {
-        private val SEARCH_TEXT = "Owl"
-        private val PER_PAGE = 32
+        private const val SEARCH_TEXT = "Owl"
+        private const val PER_PAGE = 32
     }
 
     override fun requestGetNew(page: Int, shouldRefresh: Boolean): Observable<List<MaterialPhoto>> {

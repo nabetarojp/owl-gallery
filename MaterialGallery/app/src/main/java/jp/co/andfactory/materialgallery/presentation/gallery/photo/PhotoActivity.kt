@@ -12,19 +12,16 @@ import jp.co.andfactory.materialgallery._extension.contentViewBinding
 import jp.co.andfactory.materialgallery.databinding.ActivityPhotoBinding
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhoto
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhotoId
-import jp.co.andfactory.materialgallery.util.GlideApp
 import javax.inject.Inject
 
 class PhotoActivity : AppCompatActivity(), PhotoContract.View, LifecycleOwner {
 
     companion object {
         private const val EXTRA_PHOTO_ID: String = "photo_id"
-        private const val EXTRA_PHOTO_URL: String = "photo_url"
 
         fun createIntent(context: Context, photo: MaterialPhoto): Intent {
             return Intent(context, PhotoActivity::class.java).apply {
                 putExtra(EXTRA_PHOTO_ID, photo.id.value)
-                putExtra(EXTRA_PHOTO_URL, photo.imageUrl)
             }
         }
     }
@@ -39,18 +36,11 @@ class PhotoActivity : AppCompatActivity(), PhotoContract.View, LifecycleOwner {
         AndroidInjection.inject(this)
         lifecycle.addObserver(presenter)
         supportPostponeEnterTransition()
-
         presenter.fetchPhoto(MaterialPhotoId(intent.extras.getString(EXTRA_PHOTO_ID)))
-
-        binding.apply {
-            GlideApp.with(this@PhotoActivity).load(intent.extras.getString(EXTRA_PHOTO_URL)).dontAnimate().into(photoImage)
-        }
     }
 
     override fun showPhoto(photo: MaterialPhoto) {
         binding.photo = photo
-        binding.photoImage.transitionName = photo.id.toString()
-        supportStartPostponedEnterTransition()
     }
 
     override fun showError(message: String) {

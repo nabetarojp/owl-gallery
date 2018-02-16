@@ -3,8 +3,8 @@ package jp.co.andfactory.materialgallery.presentation.gallery
 import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import android.widget.ImageView
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhoto
 import jp.co.andfactory.materialgallery.domain.usecase.GetMaterialPhotosUseCase
@@ -22,10 +22,12 @@ class GalleryPresenter
     private val viewModel = GalleryViewModel()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    override fun onResume() {}
+    override fun onResume() {
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    override fun onPause() {}
+    override fun onPause() {
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     override fun onDestroy() {
@@ -41,7 +43,8 @@ class GalleryPresenter
                 viewModel.page = 0
             }
             view.showProgress()
-            disposals.add(getMaterialPhotosUseCase.requestGetPopular(++viewModel.page, false)
+
+            getMaterialPhotosUseCase.requestGetPopular(++viewModel.page, false)
                     .subscribeBy(
                             onNext = {
                                 view.hideProgress()
@@ -52,11 +55,12 @@ class GalleryPresenter
                                 view.hideProgress()
                                 viewModel.isLoading = false
                             }
-                    ))
+                    )
+                    .addTo(disposals)
         }
     }
 
-    override fun onClickItem(view: ImageView, photo: MaterialPhoto) {
-        router.openDetail(activity, view, photo)
+    override fun onClickItem(photo: MaterialPhoto) {
+        router.openDetail(activity, photo)
     }
 }

@@ -2,7 +2,6 @@ package jp.co.andfactory.materialgallery.presentation.gallery
 
 import android.app.Activity
 import android.arch.lifecycle.LifecycleObserver
-import android.widget.ImageView
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhoto
 
 interface GalleryContract {
@@ -20,10 +19,10 @@ interface GalleryContract {
         fun onDestroy() //base
 
         fun fetchPhotos(isRefresh: Boolean = false)
-        fun onClickItem(view: ImageView, photo: MaterialPhoto)
+        fun onClickItem(photo: MaterialPhoto)
     }
 
     interface Router {
-        fun openDetail(activity: Activity, view: ImageView, photo: MaterialPhoto)
+        fun openDetail(activity: Activity, photo: MaterialPhoto)
     }
 }

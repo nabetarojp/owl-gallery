@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import android.widget.ImageView
 import dagger.android.AndroidInjection
 import io.reactivex.rxkotlin.subscribeBy
 import jp.co.andfactory.materialgallery.R
@@ -61,9 +60,8 @@ class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwne
         Log.d("gallery", list.toString())
         if (isRefresh) {
             adapter = PhotosAdapter(this, list.toMutableList(), object : PhotosAdapter.OnItemClickListener {
-                override fun onItemClick(view: ImageView, item: MaterialPhoto) {
-
-                    presenter.onClickItem(view, item)
+                override fun onItemClick(item: MaterialPhoto) {
+                    presenter.onClickItem(item)
                 }
             })
             binding.recyclerView.adapter = adapter

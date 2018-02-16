@@ -1,11 +1,9 @@
 package jp.co.andfactory.materialgallery.presentation.common.adapter
 
 import android.content.Context
-import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import jp.co.andfactory.materialgallery.databinding.GridItemMaterialPhotoBinding
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhoto
 
@@ -26,8 +24,7 @@ class PhotosAdapter internal constructor(context: Context, private val items: Mu
         val a = items[position]
         holder.binding.photo = a
         holder.binding.root.setOnClickListener {
-            ViewCompat.setTransitionName(holder.binding.photoImage, a.id.toString())
-            listener.onItemClick(holder.binding.photoImage, a)
+            listener.onItemClick(a)
         }
     }
 
@@ -45,7 +42,7 @@ class PhotosAdapter internal constructor(context: Context, private val items: Mu
     }
 
     interface OnItemClickListener {
-        fun onItemClick(view: ImageView, item: MaterialPhoto)
+        fun onItemClick(item: MaterialPhoto)
     }
 
     class ViewHolder(var binding: GridItemMaterialPhotoBinding) : RecyclerView.ViewHolder(binding.root)

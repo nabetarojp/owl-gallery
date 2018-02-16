@@ -6,6 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhoto
 import jp.co.andfactory.materialgallery.domain.model.MaterialPhotoId
+import jp.co.andfactory.materialgallery.infra.entity.FlickrPhoto
 import jp.co.andfactory.materialgallery.infra.entity.SearchOrderType
 import jp.co.andfactory.materialgallery.infra.entity.mapper.MaterialImageMapper
 
@@ -18,8 +19,13 @@ class ImageFlickrRepositoryImpl(
         private val local: ImageFlickrDataSource
 ) : ImageFlickrRepository {
 
+    /**
+     *
+     */
     override fun findByText(searchOrderType: SearchOrderType, text: String, page: Int, perPage: Int): Observable<List<MaterialPhoto>> {
-        return remote.findByText(searchOrderType, text, page, perPage).observeOn(Schedulers.newThread()).doOnNext { local.updateCache(searchOrderType, text, page, it) }
+        return remote.findByText(searchOrderType, text, page, perPage)
+                .observeOn(Schedulers.newThread())
+                .doOnNext { p: List<FlickrPhoto> -> local.updateCache(searchOrderType, text, page, p) }
                 .filter{ photos -> !photos.isEmpty()}
                 .first(ArrayList())
                 .toObservable()
