@@ -8,6 +8,7 @@ interface GalleryContract {
 
     interface View {
         fun showPhotos(list: List<MaterialPhoto>, isRefresh: Boolean)
+        fun showPhotoDialog(photo: MaterialPhoto)
         fun showProgress()
         fun hideProgress()
         fun showError(message: String)

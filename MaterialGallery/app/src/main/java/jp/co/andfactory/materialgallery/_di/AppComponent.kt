@@ -6,6 +6,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import jp.co.andfactory.materialgallery.MyApplication
 import jp.co.andfactory.materialgallery.presentation.gallery.GalleryActivityModule
+import jp.co.andfactory.materialgallery.presentation.gallery.PhotoDialogFragmentModule
 import jp.co.andfactory.materialgallery.presentation.gallery.photo.PhotoActivityModule
 import javax.inject.Singleton
 
@@ -21,6 +22,7 @@ import javax.inject.Singleton
         RepositoryModule::class,
         UseCaseModule::class,
         GalleryActivityModule::class,
+        PhotoDialogFragmentModule::class,
         PhotoActivityModule::class
 ))
 interface AppComponent : AndroidInjector<MyApplication>{

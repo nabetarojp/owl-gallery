@@ -5,10 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.rxkotlin.subscribeBy
 import jp.co.andfactory.materialgallery.R
 import jp.co.andfactory.materialgallery._extension.contentViewBinding
@@ -20,7 +24,7 @@ import jp.co.andfactory.materialgallery.presentation.common.adapter.PhotosAdapte
 import jp.co.andfactory.materialgallery.util.GridRecyclerViewScrolledToEndSubject
 import javax.inject.Inject
 
-class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwner {
+class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwner, HasSupportFragmentInjector {
 
     companion object {
         fun createIntent(context: Context): Intent {
@@ -30,9 +34,13 @@ class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwne
 
     @Inject
     lateinit var presenter: GalleryContract.Presenter
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
 
     private val binding: ActivityGalleryBinding by contentViewBinding(R.layout.activity_gallery)
     private var adapter: PhotosAdapter? = null
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = androidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +48,6 @@ class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwne
         lifecycle.addObserver(presenter)
 
         binding.apply {
-            toolbar.title = getString(R.string.app_name)
             recyclerView.layoutManager = GridLayoutManager(this@GalleryActivity, 3)
         }
         presenter.fetchPhotos(true)
@@ -61,7 +68,7 @@ class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwne
         if (isRefresh) {
             adapter = PhotosAdapter(this, list.toMutableList(), object : PhotosAdapter.OnItemClickListener {
                 override fun onItemClick(item: MaterialPhoto) {
-                    presenter.onClickItem(item)
+                    showPhotoDialog(item)
                 }
             })
             binding.recyclerView.adapter = adapter
@@ -69,6 +76,11 @@ class GalleryActivity : AppCompatActivity(), GalleryContract.View, LifecycleOwne
             adapter?.addItems(list)
         }
 
+    }
+
+    override fun showPhotoDialog(photo: MaterialPhoto) {
+        PhotoDialogFragment.newInstance(photo.id)
+                .show(supportFragmentManager, "GalleryActivity.showPhotoDialog")
     }
 
     override fun showProgress() = binding.progressBar.visible()

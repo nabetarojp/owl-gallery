@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">MaterialGallery</string>
-
-
-    <string name="transition_name_implementation_image" translatable="false">shared_element</string>
-
+    <string name="error_massage">エラーが発生しました</string>
 </resources>
