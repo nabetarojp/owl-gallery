@@ -14,7 +14,7 @@ class GetMaterialPhotosUseCaseImpl(private val imageFlickrRepository: ImageFlick
 
 
     companion object {
-        private const val SEARCH_TEXT = "owl"
+        private const val SEARCH_TEXT = "eagle"
         private const val PER_PAGE = 32
     }
 
