@@ -13,7 +13,7 @@ import javax.inject.Singleton
  */
 
 @Module
-class RepositoryModule() {
+class RepositoryModule {
 
     @Named("flickr_remote")
     @Singleton
@@ -25,7 +25,7 @@ class RepositoryModule() {
     @Singleton
     @Provides
     fun provideImageFlickrLocalDataSource(orma: OrmaDatabaseWrapper): ImageFlickrDataSource
-            = ImageFlickrLocalDataSource(orma)
+            = ImageFlickrLocalDataSource(orma.orma)
 
 
     @Singleton

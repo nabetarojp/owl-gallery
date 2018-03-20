@@ -14,7 +14,8 @@ interface FlickrApiService {
     /**
      * https://www.flickr.com/services/api/flickr.photos.search.html
      */
-    @GET("/services/rest?method=flickr.photos.search&api_key=" + BuildConfig.FLICKR_API_KEY + "&format=json&nojsoncallback=1")
+    @GET("/services/rest?method=flickr.photos.search&api_key="
+            + BuildConfig.FLICKR_API_KEY + "&format=json&nojsoncallback=1")
     fun photoSearch(@Query("text") text: String,
                     @Query("page") page: Int?,
                     @Query("per_page") perpage: Int?,

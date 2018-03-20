@@ -19,9 +19,6 @@ class ImageFlickrRepositoryImpl(
         private val local: ImageFlickrDataSource
 ) : ImageFlickrRepository {
 
-    /**
-     *
-     */
     override fun findByText(searchOrderType: SearchOrderType, text: String, page: Int, perPage: Int): Observable<List<MaterialPhoto>> {
         return remote.findByText(searchOrderType, text, page, perPage)
                 .observeOn(Schedulers.newThread())
